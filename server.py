@@ -11,13 +11,13 @@ def start():
 def my_index():
     return render_template('index.html')
 
-@app.route("/twocolumn1.html")
+@app.route("/gameOfLife.html")
 def twocolumn1():
-    return render_template('twocolumn1.html')
+    return render_template('gameOfLife.html')
 
-@app.route("/twocolumn2.html")
+@app.route("/coreWar.html")
 def twocolumn2():
-    return render_template('twocolumn2.html')
+    return render_template('coreWar.html')
 
 @app.route('/user/<username>')
 def show_user_profile(username):
