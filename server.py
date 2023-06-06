@@ -18,8 +18,3 @@ def twocolumn1():
 @app.route("/coreWar.html")
 def twocolumn2():
     return render_template('coreWar.html')
-
-@app.route('/user/<username>')
-def show_user_profile(username):
-    # show the user profile for that user
-    return f'User {escape(username)}'

@@ -1600,7 +1600,7 @@ input, select, textarea {
 	#banner {
 		position: relative;
 		width: 100%;
-		padding: 6em 0;
+		padding: 3em 0;
 		border-radius: 10px;
 		background-image: url(images/banner.jpg);
 		background-size: cover;
@@ -1610,6 +1610,14 @@ input, select, textarea {
 
 		#banner h2 {
 			font-size: 3.3em;
+			color: #fff;
+			text-align: center;
+			letter-spacing: -2px;
+			margin: 0;
+		}
+
+		#banner h3 {
+			font-size: 2.0em;
 			color: #fff;
 			text-align: center;
 			letter-spacing: -2px;
