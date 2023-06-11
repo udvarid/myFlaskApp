@@ -170,6 +170,11 @@ input, select, textarea {
 		margin-bottom: 0;
 	}
 
+	#canvas {
+		border: 1px solid black;
+		cursor: crosshair;
+	}
+
 /* Container */
 
 	.container {
@@ -2019,3 +2024,4 @@ input, select, textarea {
 				}
 
 	}
+
