@@ -20,9 +20,26 @@ function drawRectangle_() {
     }    
   }
 
-async function drawRectangle() {
+async function drawRectangle() {        
+    fetch('/stopsimulation', { method: 'GET' })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+        });
+    const players = document.getElementById("players").value;
+    const initCells = document.getElementById("initCells").value;
+    fetch("/startsimulation/" + players + "/" + initCells)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+        });
     for (let i = 0; i < 10; i++) {
-        drawRectangle_()
+        //drawRectangle_()        
+        fetch("/getdata")
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+            })
         await sleep(1000)      
     }
 }  
