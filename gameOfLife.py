@@ -28,6 +28,8 @@ class GameOfLifeBrain:
         self.universe = set()
         self.firstRound = True
         self.init_array = []
+        self.cells_prev = []
+        self.cells_prev_prev = []
 
     def run_check(self):
         return self.running
@@ -92,10 +94,30 @@ class GameOfLifeBrain:
         else:
             next_version = get_next_version(cells_to_calculate)
         self.universe = next_version
-        my_array = deepcopy(self.init_array)
-        for cell in next_version:            
-            my_array[int(cell.x)][int(cell.y)] = int(cell.value)        
+        if (self.should_stop(self.cells_prev_prev, next_version) or self.should_stop(self.cells_prev, next_version)):
+            self.stop_simulation()
+        else:
+            self.cells_prev_prev = deepcopy(self.cells_prev)
+            self.cells_prev = deepcopy(self.universe)    
         return next_version
+   
+
+    def should_stop(self, prev, current):
+        answer = False
+        if (len(prev) == len(current)):
+            answer = True
+            for prev_c in prev:                
+                found_same = False
+                for cur_c in current:
+                    if self.same_cell(prev_c, cur_c):
+                        found_same = True
+                        break
+                if not found_same:
+                    answer = False
+        return answer
+    
+    def same_cell(self, cell_a, cell_b):
+        return cell_a.x == cell_b.x and cell_a.y == cell_b.y and cell_a.value == cell_b.value
 
     def cell_has_place(self, empty):
         for cell in self.universe:

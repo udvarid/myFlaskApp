@@ -11,7 +11,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="static/css/main.css" />
 	</head>
-	<body onload="initBlack()">
+	<body onload="initCanvas()">
 		<div id="page-wrapper">
 
 			<!-- Header -->
@@ -34,10 +34,10 @@
 					</div>
 				</div>
 
-				<div id="banner-wrapper">
+				<div id="banner-wrapper_small">
 					<div class="container">
 
-						<div id="banner">							
+						<div id="banner_small">							
 							<h3>Rules:</h3>
 							<span>  - Any live cell with two or three live neighbours survives.</span>
 							<span>  - Any dead cell with three live neighbours becomes a live cell.</span>
@@ -75,10 +75,8 @@
 										<input type="number" id="initCells" min="10" max="50" value="40">
 									</div>
 									<div>
-										<button onclick="drawRectangle()">Draw</button>
-									</div>
-									<div>
-										<button onclick="stopSimulation()">Stop</button>
+										<button class="button_start" onclick="drawRectangle()">Start</button>
+										<button class="button_stop"onclick="stopSimulation()">Stop</button>
 									</div>
 								</section>
 								
@@ -96,10 +94,10 @@
 									<h2>Some related links</h2>
 									<div>
 										<div class="row">
-											<div class="col-3 col-6-medium col-12-small">
+											<div class="col-3 col-12-medium col-12-small">
 												<ul class="link-list">
-													<li><a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Wikipedia</a></li>
-													<li><a href="https://playgameoflife.com/">a professional one...</a></li>
+													<li><a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">What is Game Of Life</a></li>
+													<li><a href="https://playgameoflife.com/">Made by a professional..:)</a></li>
 												</ul>
 											</div>
 										</div>

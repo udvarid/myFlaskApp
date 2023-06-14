@@ -2,7 +2,7 @@ function drawRectangle_(cells) {
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");    
     
-    initBlack()
+    initCanvas()
 
     for (var i = 0; i < cells.length; i++) {        
         const x = JSON.parse(cells[i]).x
@@ -22,7 +22,7 @@ function drawRectangle_(cells) {
     }
   }
 
-function initBlack() {
+function initCanvas() {
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");    
     const width = canvas.width;
@@ -30,6 +30,11 @@ function initBlack() {
     ctx.clearRect(0, 0, width, height);
     ctx.fillStyle = "black"
     ctx.fillRect(0, 0, width, height);    
+    ctx.fillStyle = "red"
+    ctx.fillRect(0, 0, width, 2);    
+    ctx.fillRect(0, 0, 2, height);   
+    ctx.fillRect(0, height - 2, width, height);         
+    ctx.fillRect(width - 2, 0, width, height);   
 }
 
 async function stopSimulation() {        
@@ -61,8 +66,7 @@ async function drawRectangle() {
         await sleep(500)      
         fetch("/getdata")
             .then(response => response.json())
-            .then(data => {          
-                console.log(data)              
+            .then(data => {                          
                 if (data.run == true) {
                     drawRectangle_(data.result)        
                 } else {

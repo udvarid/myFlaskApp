@@ -42,8 +42,6 @@ def me_api():
     still_running = brain.run_check()    
     result = [] if not still_running else brain.ask_next_result()       
     return {
-        "username": "Donát",
-        "age": "44",
         "run": still_running,
         "result": [json.dumps(u.__dict__) for u in result]
     }

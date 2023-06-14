@@ -71,6 +71,9 @@ input, select, textarea {
 	appearance: none;
 }
 
+.button_stop {background-color: #f44336;}
+.button_start {background-color: #4CAF50;}
+
 /* Basic */
 
 	html {
@@ -1602,6 +1605,11 @@ input, select, textarea {
 		padding: 2em 0;
 	}
 
+	#banner-wrapper_small {
+		background: #c8d2bc url(images/bg1.png);
+		padding: 1em 0;
+	}
+
 	#banner {
 		position: relative;
 		width: 100%;
@@ -1639,6 +1647,36 @@ input, select, textarea {
 			text-transform: lowercase;
 			opacity: 0.8;
 		}
+		
+	#banner_small {
+		position: relative;
+		width: 100%;
+		padding: 1em 0;
+		border-radius: 10px;
+		background-image: url(images/banner.jpg);
+		background-size: cover;
+		text-align: center;
+		box-shadow: inset 0 0 0 20px #fff;
+	}
+
+		#banner_small h3 {
+			font-size: 1.5em;
+			color: #fff;
+			text-align: center;
+			letter-spacing: -2px;
+			margin: 0;
+		}
+
+		#banner_small span {
+			display: block;
+			left: 0;
+			margin: 0.5em 0 0 0;
+			font-size: 1.3em;
+			color: #fff;
+			letter-spacing: -1px;
+			text-transform: lowercase;
+			opacity: 0.9;
+		}		
 
 /* Main */
 
