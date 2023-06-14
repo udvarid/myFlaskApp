@@ -1,5 +1,6 @@
-from flask import Flask, render_template
-from gameOfLife import GameOfLifeBrain
+from flask import Flask, render_template, jsonify
+from gameOfLife import GameOfLifeBrain, Cell
+import json
 
 brain = GameOfLifeBrain()
 app = Flask(__name__)
@@ -38,9 +39,10 @@ def startsimulation(players, initcells):
 
 @app.route("/getdata")
 def me_api():     
-
+    result = brain.ask_next_result()       
     return {
         "username": "Donát",
         "age": "44",
-        "run": brain.run_check()
+        "run": brain.run_check(),
+        "result": [json.dumps(u.__dict__) for u in result]
     }

@@ -1,23 +1,22 @@
-function drawRectangle_() {
+function drawRectangle_(cells) {
     const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d");    
     
-    const width = 800;
-    const height = 800;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (let i = 0; i < width / 20; i++) {
-        for (let j = 0; j < height / 20; j++) {
-            const myRand = Math.random()
-            if (myRand < 0.1) {
-                ctx.fillStyle = "red";    
-            } else if (myRand < 0.2) {
-                ctx.fillStyle = "blue";    
-            } else {
-                ctx.fillStyle = "black";    
-            }
-            ctx.fillRect(i * 20, j * 20, (i + 1) * 20, (j + 1) * 20);                    
-        }
-    }    
+    const width = canvas.width;
+    const height = canvas.height;    
+    ctx.clearRect(0, 0, width, height);
+    ctx.fillStyle = "black"
+    ctx.fillRect(0, 0, width, height);    
+
+    for (var i = 0; i < cells.length; i++) {
+        console.log(cells[i])
+        const x = JSON.parse(cells[i]).x
+        const y = JSON.parse(cells[i]).y
+        const value = JSON.parse(cells[i]).value
+        console.log(x, y, value)
+        ctx.fillStyle = "red"
+        ctx.fillRect(x * 20, y * 20, (x + 1) * 20, (y + 1) * 20);                    
+    }
   }
 
 async function drawRectangle() {        
@@ -31,14 +30,14 @@ async function drawRectangle() {
     fetch("/startsimulation/" + players + "/" + initCells)
         .then(response => response.json())
         .then(data => {
-            console.log(data)
+            console.log(data)        
         });
-    for (let i = 0; i < 10; i++) {
-        //drawRectangle_()        
+    await sleep(1000)      
+    for (let i = 0; i < 1; i++) {        
         fetch("/getdata")
             .then(response => response.json())
-            .then(data => {
-                console.log(data)
+            .then(data => {                
+                drawRectangle_(data.result)        
             })
         await sleep(1000)      
     }

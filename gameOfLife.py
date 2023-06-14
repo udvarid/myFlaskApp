@@ -69,8 +69,8 @@ class GameOfLifeBrain:
 
     def place_random_cells_around_center(self, x, y, tribe):
         while not self.tribe_is_ready(tribe):
-            rand_x = 10 - randint(0, 20)
-            rand_y = 10 - randint(0, 20)
+            rand_x = 9 - randint(0, 18)
+            rand_y = 9 - randint(0, 18)
             cell = Cell(x + rand_x, y + rand_y, tribe)
             self.universe.add(cell)
 
@@ -93,9 +93,9 @@ class GameOfLifeBrain:
             next_version = get_next_version(cells_to_calculate)
         self.universe = next_version
         my_array = deepcopy(self.init_array)
-        for cell in next_version:
-            my_array[int(cell.x)][int(cell.y)] = int(cell.value)
-        return my_array
+        for cell in next_version:            
+            my_array[int(cell.x)][int(cell.y)] = int(cell.value)        
+        return next_version
 
     def cell_has_place(self, empty):
         for cell in self.universe:
