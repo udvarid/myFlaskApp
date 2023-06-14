@@ -49,6 +49,8 @@ class GameOfLifeBrain:
     def stop_simulation(self):
         self.running = False
         self.universe = set()
+        self.cells_prev = []
+        self.cells_prev_prev = []
         print("Stopping simulation")
 
     def ask_next_result(self):
@@ -109,16 +111,13 @@ class GameOfLifeBrain:
             for prev_c in prev:                
                 found_same = False
                 for cur_c in current:
-                    if self.same_cell(prev_c, cur_c):
+                    if prev_c == cur_c:
                         found_same = True
                         break
                 if not found_same:
                     answer = False
         return answer
     
-    def same_cell(self, cell_a, cell_b):
-        return cell_a.x == cell_b.x and cell_a.y == cell_b.y and cell_a.value == cell_b.value
-
     def cell_has_place(self, empty):
         for cell in self.universe:
             if cell.x == empty.x and cell.y == empty.y:

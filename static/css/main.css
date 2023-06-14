@@ -71,8 +71,49 @@ input, select, textarea {
 	appearance: none;
 }
 
-.button_stop {background-color: #f44336;}
-.button_start {background-color: #4CAF50;}
+.button_stop {
+	background-color: #f44336;
+	padding: 25px 70px;	
+	margin: 5px;	
+}
+.button_start {
+	background-color: #4CAF50;
+	padding: 25px 70px;	
+	margin: 5px;	
+}
+
+.btn_tribes {
+	padding: 10px 21px;
+	border: none;
+	background-color: #bcc2c2;
+	cursor: pointer;
+	margin: 2px;
+	font-size: 0.7em;
+  }
+  
+  .btn_tribes.selected {
+	background-color: #f04d4d;
+	color: #fff;
+  }
+
+.btn_init {
+	padding: 10px 11px;
+	border: none;
+	background-color: #b9ddda;
+	cursor: pointer;	
+	margin: 2px;
+  }
+  
+  .btn_init.selected {
+	background-color: #f04d4d;
+	color: #fff;
+  }  
+
+.number-cells {
+	padding: 10px 11px;
+	border: none;		
+	margin: 2px;
+}
 
 /* Basic */
 
