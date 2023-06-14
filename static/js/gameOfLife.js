@@ -2,45 +2,75 @@ function drawRectangle_(cells) {
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");    
     
+    initBlack()
+
+    for (var i = 0; i < cells.length; i++) {        
+        const x = JSON.parse(cells[i]).x
+        const y = JSON.parse(cells[i]).y
+        const value = JSON.parse(cells[i]).value        
+        if (value == 1) {
+            ctx.fillStyle = "red"    
+        } else if (value == 2) {
+            ctx.fillStyle = "blue"    
+        } else if (value == 3) {
+            ctx.fillStyle = "green"    
+        } else if (value == 4) {
+            ctx.fillStyle = "yellow"    
+        }
+        
+        ctx.fillRect(x * 20 + 1, y * 20 + 1, 18, 18);                    
+    }
+  }
+
+function initBlack() {
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");    
     const width = canvas.width;
     const height = canvas.height;    
     ctx.clearRect(0, 0, width, height);
     ctx.fillStyle = "black"
     ctx.fillRect(0, 0, width, height);    
+}
 
-    for (var i = 0; i < cells.length; i++) {
-        console.log(cells[i])
-        const x = JSON.parse(cells[i]).x
-        const y = JSON.parse(cells[i]).y
-        const value = JSON.parse(cells[i]).value
-        console.log(x, y, value)
-        ctx.fillStyle = "red"
-        ctx.fillRect(x * 20, y * 20, (x + 1) * 20, (y + 1) * 20);                    
-    }
-  }
+async function stopSimulation() {        
+    fetch('/stopsimulation', { method: 'GET' })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+        });
+}
+  
 
 async function drawRectangle() {        
     fetch('/stopsimulation', { method: 'GET' })
         .then(response => response.json())
         .then(data => {
             console.log(data)
+            if (data.response == true) {
+                const players = document.getElementById("players").value;
+                const initCells = document.getElementById("initCells").value;
+                fetch("/startsimulation/" + players + "/" + initCells)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)        
+                    });                
+            }
         });
-    const players = document.getElementById("players").value;
-    const initCells = document.getElementById("initCells").value;
-    fetch("/startsimulation/" + players + "/" + initCells)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)        
-        });
-    await sleep(1000)      
-    for (let i = 0; i < 1; i++) {        
+    var stillRunning = true
+    while (stillRunning) {
+        await sleep(500)      
         fetch("/getdata")
             .then(response => response.json())
-            .then(data => {                
-                drawRectangle_(data.result)        
-            })
-        await sleep(1000)      
+            .then(data => {          
+                console.log(data)              
+                if (data.run == true) {
+                    drawRectangle_(data.result)        
+                } else {
+                    stillRunning = false
+                }                
+            })        
     }
+
 }  
 
 function sleep(ms) {

@@ -11,7 +11,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="static/css/main.css" />
 	</head>
-	<body>
+	<body onload="initBlack()">
 		<div id="page-wrapper">
 
 			<!-- Header -->
@@ -72,10 +72,13 @@
 									</div>
 									<div>
 										<label for="initCells">Init cells:</label>
-										<input type="number" id="initCells" min="10" max="50" value="20">
+										<input type="number" id="initCells" min="10" max="50" value="40">
 									</div>
 									<div>
 										<button onclick="drawRectangle()">Draw</button>
+									</div>
+									<div>
+										<button onclick="stopSimulation()">Stop</button>
 									</div>
 								</section>
 								

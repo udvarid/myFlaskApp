@@ -39,10 +39,11 @@ def startsimulation(players, initcells):
 
 @app.route("/getdata")
 def me_api():     
-    result = brain.ask_next_result()       
+    still_running = brain.run_check()    
+    result = [] if not still_running else brain.ask_next_result()       
     return {
         "username": "Donát",
         "age": "44",
-        "run": brain.run_check(),
+        "run": still_running,
         "result": [json.dumps(u.__dict__) for u in result]
     }
