@@ -155,8 +155,7 @@ def get_next_version(cells):
     living_cells = list(filter(lambda cell: cell.value != 0, cells))
     for dead_cell in dead_cells:
         neighbouring_living_cells_next_to_dead_cell = get_neighbouring_living_cells(living_cells, dead_cell)
-        if len(neighbouring_living_cells_next_to_dead_cell) == 3 and cells_from_same_tribe(
-                neighbouring_living_cells_next_to_dead_cell):
+        if len(neighbouring_living_cells_next_to_dead_cell) == 3 and cells_from_same_tribe(neighbouring_living_cells_next_to_dead_cell):
             dead_cell.value = list(neighbouring_living_cells_next_to_dead_cell)[0].value
             final_cells.add(dead_cell)
 
@@ -167,12 +166,11 @@ def get_next_version(cells):
     return final_cells
 
 
-def cells_from_same_tribe(cells):
-    if len(cells) > 0:
-        tribe = list(cells)[0].value
-        for cell in cells:
-            if cell.value != tribe:
-                return False
+def cells_from_same_tribe(cells):    
+    tribe = list(cells)[0].value
+    for cell in cells:
+        if cell.value != tribe:
+            return False
     return True
 
 
@@ -182,5 +180,5 @@ def get_neighbouring_living_cells(cells, living_cell):
         if cell != living_cell and \
                 abs(cell.x - living_cell.x) <= 1 and \
                 abs(cell.y - living_cell.y) <= 1:
-            neighbouring_living_cells.add(cell)
+            neighbouring_living_cells.add(cell)            
     return neighbouring_living_cells
