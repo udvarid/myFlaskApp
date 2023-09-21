@@ -130,8 +130,8 @@ function initCanvas() {
     ctx.fillRect(width - 2, 0, width, height);
     ctx.fillStyle = "#292727"    
     for (var i = 1; i < 40; i++) {
-        ctx.fillRect(2, i * 20, width - 2, 2);
-        ctx.fillRect(i * 20, 2, 2, height - 2);
+        ctx.fillRect(2, i * 20, width - 4, 2);
+        ctx.fillRect(i * 20, 2, 2, height - 4);
     }
 }
 
