@@ -29,7 +29,9 @@ class BodyType(Enum):
 
 class Worm_colour(Enum):
     RED = 1,
-    BLUE = 2
+    BLUE = 2,
+    YELLOW = 3,
+    GREEN = 4
 
 
 class Body_part:
@@ -52,7 +54,7 @@ class Body_part:
 
 class Worm_dto:
     def __init__(self, worm):
-        self.color = 'red' if worm.color == Worm_colour.RED else 'blue'
+        self.color = get_color_dto(worm.color)
         self.state = 'Egg' if worm.state == State.EGG else 'Live'
         self.direction = get_direction_dto(worm.direction)
         self.coor_x = int(worm.coordinate.x)
@@ -63,6 +65,17 @@ class Worm_dto:
         unborn_bodies = worm.get_unborn_body_parts()
         if len(unborn_bodies) > 0:
             self.bodies.append(unborn_bodies[0].create_dto())
+
+def get_color_dto(color):
+    if color == Worm_colour.RED:
+        return 'red'
+    elif color == Worm_colour.BLUE:
+        return 'blue'
+    elif color == Worm_colour.GREEN:
+        return 'green'
+    elif color == Worm_colour.YELLOW:
+        return 'orange'
+    
 
 def get_body_type_dto(body_type):
     if body_type ==  BodyType.BRAIN:
@@ -106,7 +119,7 @@ class Coordinate:
 
 class Worm:
     def __init__(self, coordinate, body_types, color, worm_brain, map_max):
-        self.coordinate = coordinate        
+        self.coordinate = coordinate
         self.color = color
         self.direction = Direction(random.randint(1, 4))
         self.body_parts = list(map(self.create_body_part, body_types))

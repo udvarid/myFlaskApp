@@ -1,4 +1,4 @@
-from worm import State, Worm, Coordinate, Worm_colour, Worm_dto
+from worm import State, Worm, Coordinate, Worm_colour
 
 
 class WormBrain:
@@ -15,10 +15,16 @@ class WormBrain:
         self.size = params.get('size')
         body_types_blue = params.get('worm_blue').get('body_type')
         body_types_red = params.get('worm_red').get('body_type')
+        body_types_green = params.get('worm_green').get('body_type')
+        body_types_yellow = params.get('worm_yellow').get('body_type')
         new_worm_blue = Worm(Coordinate(10, 10), body_types_blue, Worm_colour.BLUE, self, map_max=self.size)
         new_worm_red = Worm(Coordinate(30, 30), body_types_red, Worm_colour.RED, self, map_max=self.size)
+        new_worm_yellow = Worm(Coordinate(10, 30), body_types_yellow, Worm_colour.YELLOW, self, map_max=self.size)
+        new_worm_green = Worm(Coordinate(30, 10), body_types_green, Worm_colour.GREEN, self, map_max=self.size)
         self.worms.append(new_worm_blue)
-        self.worms.append(new_worm_red)        
+        self.worms.append(new_worm_red)
+        self.worms.append(new_worm_yellow)
+        self.worms.append(new_worm_green)
         print(f"Starting Simulation, size is {self.size}")
 
     def stop_simulation(self):
@@ -56,15 +62,21 @@ class WormBrain:
                                  e.coordinate == damaged_body_part.coordinate][0]
                 if index_of_body == 0 or index_of_body == len(attacked_worm.body_parts) - 1:
                     del attacked_worm.body_parts[index_of_body]
-                    attacked_worm.state = State.MOVE
+                    attacked_worm.state = State.REST
+                    attacked_worm.rest_time = 3
+                    first_body_coordinate  = attacked_worm.body_parts[0].coordinate
+                    attacked_worm.coordinate = Coordinate(first_body_coordinate.x, first_body_coordinate.y)
                 else:
                     self.create_new_worm_(attacked_worm, attacked_worm.body_parts[index_of_body + 1:])
                     attacked_worm.body_parts = attacked_worm.body_parts[:index_of_body]
-                    attacked_worm.state = State.MOVE
+                    attacked_worm.state = State.REST
+                    attacked_worm.rest_time = 3
+                    first_body_coordinate  = attacked_worm.body_parts[0].coordinate
+                    attacked_worm.coordinate = Coordinate(first_body_coordinate.x, first_body_coordinate.y)
 
     def create_new_worm_(self, attacked_worm, body_parts):
         coor = body_parts[0].coordinate
-        new_worm = Worm(coor, attacked_worm.body_types_origin, attacked_worm.color, attacked_worm.worm_brain, attacked_worm.map_max)
+        new_worm = Worm(Coordinate(coor.x, coor.y), attacked_worm.body_types_origin, attacked_worm.color, attacked_worm.worm_brain, attacked_worm.map_max)
         new_worm.state = State.REST
         new_worm.body_parts = body_parts
         self.worms.append(new_worm)

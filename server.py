@@ -47,9 +47,11 @@ def startsimulation(players, initcells):
 
 @app.route("/startsimulation_worm")
 def startsimulation_worm():    
-    # TODO egyenlőre 2 constanst prototípust rakjunk össze, később ezt és az egyéb paramétereket kapja
+    # TODO egyenlőre 4 constanst prototípust rakjunk össze, később ezt és az egyéb paramétereket kapja
     body_types_red = [BodyType.MOUTH, BodyType.BRAIN, BodyType.LEG, BodyType.MULTIPLIER, BodyType.LEG]
     body_types_blue = [BodyType.MOUTH, BodyType.BRAIN, BodyType.LEG, BodyType.MULTIPLIER, BodyType.LEG]
+    body_types_green = [BodyType.MOUTH, BodyType.BRAIN, BodyType.LEG, BodyType.MULTIPLIER, BodyType.LEG]
+    body_types_yellow = [BodyType.MOUTH, BodyType.BRAIN, BodyType.LEG, BodyType.MULTIPLIER, BodyType.LEG]
     params = {
         'size': 40,
         'worm_red': {
@@ -57,6 +59,12 @@ def startsimulation_worm():
         },
         'worm_blue': {
             'body_type': body_types_blue
+        },
+        'worm_green': {
+            'body_type': body_types_green
+        },
+        'worm_yellow': {
+            'body_type': body_types_yellow
         }
     }
     worm.run_simulation(params)    
