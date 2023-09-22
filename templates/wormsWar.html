@@ -40,7 +40,7 @@
 
 						<div id="banner_small">							
 							<h3>Rules:</h3>
-							<span>  - There are two types of worms: red and blue. Both types can be constructed differently by you.</span>
+							<span>  - There are four worms: red, blue, green and orange. Both can be constructed differently by you.</span>
 							<span>  - The worms are moving and breeding. And they eating each other (even the same color).</span>
 							<span>  - If a worm has no brain (as it eaten by an other) it will be dead.</span>							
 						</div>
@@ -53,6 +53,23 @@
 				<div id="main">
 					<div class="container">
 						<div class="row main-row">
+							<div class="col-2 col-12-medium">
+
+
+								<section>
+									<h2>Worms War parameters</h2>									
+									<div>
+										<button class="button_start" onclick="drawRectangle()">Start</button>
+										<button class="button_stop"onclick="stopSimulation()">Stop</button>
+									</div>
+									<div class="button-group">
+										<button class="btn_init" onclick="changeSpeed(1)">Faster</button>
+										<button class="btn_init" onclick="changeSpeed(2)">Slower</button>
+									</div>									
+
+								</section>
+
+							</div>
 							<div class="col-8 col-12-medium">
 
 								<section>
@@ -63,15 +80,29 @@
 								</section>
 
 							</div>
-							<div class="col-4 col-12-medium">
+							<div class="col-2 col-12-medium">
 
 								<section>
-									<h2>Worms War parameters</h2>									
-									<div>
-										<button class="button_start" onclick="drawRectangle()">Start</button>
-										<button class="button_stop"onclick="stopSimulation()">Stop</button>
+									<h2>Number of worms</h2>
+									<div class="number-worms" id="tribe_all_1">
+										<span style="color:red">Worms Red: </span> 
+										<span style="color:red" id="tribe_1">0</span>
+									</div>
+									<div class="number-worms" id="tribe_all_2">
+										<span style="color:blue">Worms Blue: </span> 
+										<span style="color:blue" id="tribe_2">0</span>
+									</div>
+									<div class="number-worms" id="tribe_all_3">
+										<span style="color:green">Worms Green: </span> 
+										<span style="color:green" id="tribe_3">0</span>
+									</div>
+									<div class="number-worms" id="tribe_all_4">
+										<span style="color:rgb(241, 168, 9)" >Worms Orange: </span> 
+										<span style="color:rgb(241, 168, 9)" id="tribe_4">0</span>
 									</div>
 								</section>
+
+
 							
 							</div>
 						</div>

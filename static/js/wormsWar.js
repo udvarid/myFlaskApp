@@ -1,6 +1,10 @@
+var speed = 500
+var number = [0, 0, 0, 0]
+
 function drawRectangle_(worms) {
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");    
+    number = [0, 0, 0, 0]
     
     initCanvas()
 
@@ -8,6 +12,7 @@ function drawRectangle_(worms) {
         const worm = JSON.parse(worms[i])
         const state = worm.state
         const color = worm.color
+        fillUpColorTable(number, color)
         const direction = worm.direction
         ctx.fillStyle = color
         if (state == 'Egg') {            
@@ -72,6 +77,19 @@ function drawRectangle_(worms) {
             }            
         }
     }
+    write_report()
+}
+
+function fillUpColorTable(number, color) {
+    if (color == 'red') {
+        number[0] = number[0] + 1
+    } else if (color == 'blue') {
+        number[1] = number[1] + 1
+    } else if (color == 'green') {
+        number[2] = number[2] + 1
+    } else if (color == 'orange') {
+        number[3] = number[3] + 1
+    }
 }
 
 function findCoordinate(bodies, body) {
@@ -81,6 +99,26 @@ function findCoordinate(bodies, body) {
         }
     }
     return false
+}
+
+function changeSpeed(indicator) {    
+    if (indicator == 1) {
+        if (speed > 250) {
+            speed = speed - 250
+        } else if (speed > 100) {
+            speed = 100
+        } else if (speed == 100) {
+            speed = 50
+        }
+    } else if (indicator == 2) {        
+        if (speed == 50) {
+            speed = 100
+        } else if (speed == 100) {
+            speed = 250
+        } else if (speed < 1000) {
+            speed = speed + 250
+        }
+    }
 }
 
 function startScripts() {
@@ -114,7 +152,28 @@ async function stopSimulation() {
             console.log(data)
         });
 }
-  
+
+function write_report() {        
+    var tribe_1 = document.getElementById("tribe_1");
+    var tribe_2= document.getElementById("tribe_2");
+    var tribe_3 = document.getElementById("tribe_3");
+    var tribe_4 = document.getElementById("tribe_4");
+    tribe_1.textContent = number[0]    
+    tribe_2.textContent = number[1]
+    tribe_3.textContent = number[2]    
+    tribe_4.textContent = number[3]    
+}
+
+function clean_report() {    
+    var tribe_1 = document.getElementById("tribe_1");
+    var tribe_2= document.getElementById("tribe_2");
+    var tribe_3 = document.getElementById("tribe_3");
+    var tribe_4 = document.getElementById("tribe_4");
+    tribe_1.textContent = 0
+    tribe_2.textContent = 0
+    tribe_3.textContent = 0
+    tribe_4.textContent = 0
+} 
 
 async function drawRectangle() {        
     fetch('/stopsimulation_worm', { method: 'GET' })
@@ -125,13 +184,18 @@ async function drawRectangle() {
                 fetch("/startsimulation_worm")
                     .then(response => response.json())
                     .then(data => {
-                        console.log(data)                               
+                        console.log(data)
+                        clean_report()
                     });                
             }
         });
     var stillRunning = true    
-    while (stillRunning) {        
-        await sleep(500)      
+    while (stillRunning) {   
+        const winner = checkWinner()
+        if (winner != 0) {
+            stillRunning = false            
+        }
+        await sleep(speed)      
         fetch("/getdata_worm")
             .then(response => response.json())
             .then(data => {                                       
@@ -144,6 +208,28 @@ async function drawRectangle() {
     }
 
 }  
+
+function checkWinner() {
+    const sumOfWorms = number[0] + number[1] + number[2] + number[3]
+    const limit = 0.75
+    if (sumOfWorms == 0) {
+        return 0
+    }
+    if (number[0] > 0 && number[0] / sumOfWorms >= limit) {
+        return 1
+    }
+    if (number[1] > 0 && number[1] / sumOfWorms >= limit) {
+        return 2
+    }
+    if (number[2] > 0 && number[2] / sumOfWorms >= limit) {
+        return 3
+    }
+    if (number[3] > 0 && number[3] / sumOfWorms >= limit) {
+        return 4
+    }
+
+    return 0
+}
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
