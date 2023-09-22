@@ -103,6 +103,20 @@ input, select, textarea {
 	cursor: pointer;	
 	margin: 2px;
   }
+
+  .btn_fast {
+	padding: 4px 4px;
+	border: none;
+	background-color: #38e915;	
+	margin: 1px;
+  }
+
+  .btn_slow {
+	padding: 4px 4px;
+	border: none;
+	background-color: #e95115;	
+	margin: 1px;
+  }
   
   .btn_init.selected {
 	background-color: #f04d4d;

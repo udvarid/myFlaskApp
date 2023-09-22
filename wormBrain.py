@@ -110,6 +110,8 @@ class WormBrain:
                         worm.state = State.KILLED
                     else:
                         worm.state = State.ATTACKED
+                    return True
+        return False
 
     def get_number_of_color_type_worm(self, color):
         return len(list(filter(lambda x: x.color == color, self.worms)))

@@ -128,10 +128,9 @@ class Worm:
         self.puppeteer_time = 5 + random.randint(1, 5)
         self.move_fragment = self.get_weight()
         self.birth_rest = 0
-        self.birth_rest_limit = 10
+        self.birth_rest_limit = 20
         self.make_birth = 0.25
-        self.change_direction = 0.25
-        self.weight = self.get_weight()
+        self.change_direction = 0.25        
         self.map_max = map_max
         self.worm_brain = worm_brain
         self.rest_time = 3
@@ -203,14 +202,16 @@ class Worm:
             return random.choice([Direction.EAST, Direction.WEST])
 
     def make_move(self):
-        self.weight = max(self.weight - self.get_move(), 0)
-        if self.weight == 0:
+        self.move_fragment = max(self.move_fragment - self.get_move(), 0)
+        if self.move_fragment == 0:
             next_coordinate = self.get_next_coordinate()
             direction = self.direction
             is_way_free = self.worm_brain.check_way(next_coordinate)
             if self.body_parts[0].body_type == BodyType.MOUTH or is_way_free:
                 if not is_way_free:
-                    self.worm_brain.clear_way(next_coordinate)
+                    succes_attack = self.worm_brain.clear_way(next_coordinate)
+                    if succes_attack:
+                        self.birth_rest = 0
                 self.coordinate = next_coordinate
                 for body_part in self.body_parts:
                     past_direction = body_part.direction
@@ -219,7 +220,7 @@ class Worm:
                     next_coordinate = past_coordinate
                     body_part.direction = direction
                     direction = past_direction
-                self.weight = self.get_weight()
+                self.move_fragment = self.get_weight()
 
     def process_turn_phase(self):
         self.make_move()
