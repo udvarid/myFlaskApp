@@ -139,8 +139,8 @@ class Worm:
         return Worm_dto(self)
 
 
-    def next_phase(self):
-        if self.birth_rest > 0:
+    def next_phase(self):        
+        if self.birth_rest > 0:            
             self.birth_rest = max(self.birth_rest - len(self.get_multipliers()), 0)
         if self.state == State.EGG:
             self.process_egg_phase()
@@ -228,11 +228,11 @@ class Worm:
             self.state = State.MOVE
 
     def process_egg_laying_phase(self):
-        free_places = list(filter(self.worm_brain.check_way, self.get_possible_egg_places()))
-        if len(free_places) > 0:
+        free_places = list(filter(self.worm_brain.check_way, self.get_possible_egg_places()))        
+        if len(free_places) > 0:            
             egg_place = random.choice(free_places)
-            new_worm = Worm(egg_place, self.body_types_origin, self.color, self.worm_brain, self.map_max)
-            self.worm_brain.worms.append(new_worm)
+            new_worm = Worm(egg_place, self.body_types_origin, self.color, self.worm_brain, self.map_max)            
+            self.worm_brain.worms.append(new_worm)                  
         self.state = State.MOVE
         self.birth_rest = self.birth_rest_limit
 

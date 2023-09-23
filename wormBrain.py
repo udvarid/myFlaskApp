@@ -10,7 +10,7 @@ class WormBrain:
     def run_check(self):
         return self.running
 
-    def run_simulation(self, params):
+    def run_simulation(self, params):        
         self.running = True
         self.size = params.get('size')
         body_types_blue = params.get('worm_blue').get('body_type')
@@ -32,7 +32,7 @@ class WormBrain:
         self.worms = []
         print("Stopping simulation")
 
-    def ask_next_result(self):
+    def ask_next_result(self):        
         for worm in self.worms:
             worm.next_phase()
         self.handle_attacked_worms_()

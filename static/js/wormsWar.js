@@ -180,8 +180,13 @@ async function drawRectangle() {
         .then(response => response.json())
         .then(data => {
             console.log(data)
-            if (data.response == true) {                
-                fetch("/startsimulation_worm")
+            if (data.response == true) {          
+                const worm_text_red = document.getElementById("worm_body_1").value         
+                const worm_text_blue = document.getElementById("worm_body_2").value
+                const worm_text_green = document.getElementById("worm_body_3").value
+                const worm_text_orange = document.getElementById("worm_body_4").value
+                const worm_text = worm_text_red + "_" + worm_text_blue + "_" + worm_text_green + "_" + worm_text_orange
+                fetch("/startsimulation_worm/" + worm_text)
                     .then(response => response.json())
                     .then(data => {
                         console.log(data)
@@ -233,4 +238,21 @@ function checkWinner() {
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function wormBody(worm) {
+    var worm_text = document.getElementById("worm_body_" + worm);   
+    const text_value = worm_text.value.toUpperCase()
+    var final_text_value = ""
+    for (let i in text_value) {
+        if (["B","M","L","X"].includes(text_value[i])) {
+            final_text_value += text_value[i]
+        }
+    }
+    final_text_value = final_text_value.slice(0,12)
+    if (final_text_value.length == 0) {
+        final_text_value = "MBLXL"
+    }
+    worm_text.value = final_text_value
+    worm_text.textContent = final_text_value    
 }

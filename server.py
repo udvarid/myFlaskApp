@@ -45,13 +45,13 @@ def startsimulation(players, initcells):
     brain.run_simulation(params)
     return {"response" : True}
 
-@app.route("/startsimulation_worm")
-def startsimulation_worm():    
-    # TODO egyenlőre 4 constanst prototípust rakjunk össze, később ezt és az egyéb paramétereket kapja
-    body_types_red = [BodyType.MOUTH, BodyType.BRAIN, BodyType.LEG, BodyType.MULTIPLIER, BodyType.LEG]
-    body_types_blue = [BodyType.MOUTH, BodyType.BRAIN, BodyType.LEG, BodyType.MULTIPLIER, BodyType.LEG]
-    body_types_green = [BodyType.MOUTH, BodyType.BRAIN, BodyType.LEG, BodyType.MULTIPLIER, BodyType.LEG]
-    body_types_yellow = [BodyType.MOUTH, BodyType.BRAIN, BodyType.LEG, BodyType.MULTIPLIER, BodyType.LEG]
+@app.route("/startsimulation_worm/<string:worm_text>")
+def startsimulation_worm(worm_text):
+    separated_worm_bodies = worm_text.split("_")
+    body_types_red = list(map(get_worm_body_type, [body_char for body_char in separated_worm_bodies[0]]))
+    body_types_blue = list(map(get_worm_body_type, [body_char for body_char in separated_worm_bodies[1]]))
+    body_types_green = list(map(get_worm_body_type, [body_char for body_char in separated_worm_bodies[2]]))
+    body_types_yellow = list(map(get_worm_body_type, [body_char for body_char in separated_worm_bodies[3]]))
     params = {
         'size': 40,
         'worm_red': {
@@ -88,3 +88,13 @@ def me_api_worm():
         "run": still_running,
         "result": [json.dumps(u.__dict__) for u in result]
     }
+
+def get_worm_body_type(body_char):
+    if (body_char == "M"):
+        return BodyType.MOUTH
+    elif (body_char == "B"):
+        return BodyType.BRAIN
+    elif (body_char == "L"):
+        return BodyType.LEG
+    elif (body_char == "X"):
+        return BodyType.MULTIPLIER
